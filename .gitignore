@@ -1,0 +1,33 @@
+# Local deployment state and credentials
+.env
+.env.*
+*.db
+*.sqlite
+*.sqlite3
+*.bak
+*.log
+*.pem
+*.key
+*.p12
+.cloudflared/
+secrets/
+
+# Runtime/build output
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+coverage.xml
+dist/
+build/
+
+# Local data/report exports must never enter the public source tree.
+*.csv
+*.pdf
+*.xlsx
+*.xls
+*holdings*
+*orders*
+*rebalance*
+*portfolio*
+*shadow*

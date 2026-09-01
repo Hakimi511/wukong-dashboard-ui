@@ -1,0 +1,9 @@
+{
+  "schema_version": "public-demo-1",
+  "as_of": "2026-09-01",
+  "mode": "production",
+  "period_start": "2016-05-03",
+  "initial_capital": null,
+  "price_basis": "raw_close",
+  "note": "脱敏演示数据；不代表真实账户、持仓或交易记录。"
+}

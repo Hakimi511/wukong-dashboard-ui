@@ -1,0 +1,9 @@
+# Copy this file to the local cloudflared configuration directory.
+# Do not commit the real credentials file.
+tunnel: YOUR_TUNNEL_UUID
+credentials-file: C:\Users\liyil\.cloudflared\YOUR_TUNNEL_UUID.json
+
+ingress:
+  - hostname: dashboard.example.com
+    service: http://127.0.0.1:8766
+  - service: http_status:404

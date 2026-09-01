@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex,nofollow,noarchive">
+    <title>悟空质量价值 · 生产后台</title>
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body>
+    <main class="shell">
+      <header class="topbar">
+        <div><span class="eyebrow">WUKONG QUALITY VALUE</span><h1>悟空质量价值 · 生产后台</h1></div>
+        <form method="post" action="/logout"><button type="submit" class="ghost">退出</button></form>
+      </header>
+      <section class="notice"><strong>只读生产视图</strong><span>数据由本机正式账本服务提供；调仓预告不等于成交。</span></section>
+      <section class="controls">
+        <label>展示口径<select id="mode"><option value="production">生产口径</option><option value="full_research">完整研究样本</option><option value="stress">压力审计</option></select></label>
+        <span id="audit-status" class="status">读取中…</span>
+      </section>
+      <section class="cards" id="cards"></section>
+      <section class="grid">
+        <article class="panel"><div class="panel-head"><span class="eyebrow">FACTOR EVIDENCE</span><h2>因子证据</h2></div><div id="factor-evidence" class="evidence">读取中…</div></article>
+        <article class="panel"><div class="panel-head"><span class="eyebrow">PROVENANCE</span><h2>来源与审计</h2></div><div id="provenance" class="evidence">读取中…</div></article>
+      </section>
+      <footer>服务端鉴权 · HttpOnly Cookie · 本页面禁止搜索引擎索引</footer>
+    </main>
+    <script src="./app.js" defer></script>
+  </body>
+</html>

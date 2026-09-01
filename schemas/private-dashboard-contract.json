@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Private dashboard read-only contract",
+  "type": "object",
+  "required": ["schema_version", "data_as_of", "read_only", "presentation_modes"],
+  "properties": {
+    "schema_version": {"type": "string"},
+    "data_as_of": {"type": "string", "format": "date"},
+    "read_only": {"const": true},
+    "presentation_modes": {"type": "array", "minItems": 3},
+    "audit": {"type": "object"}
+  },
+  "additionalProperties": true
+}
