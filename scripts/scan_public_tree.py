@@ -19,14 +19,22 @@ FORBIDDEN_CONTENT = [
 ]
 
 
-def scan() -> list[str]:
-    errors: list[str] = []
+def public_files() -> list[Path]:
+    files: list[Path] = []
     for path in sorted(ROOT.rglob("*")):
         if not path.is_file():
             continue
         relative = path.relative_to(ROOT)
         if relative.parts[0] in {".git", "__pycache__"} or "__pycache__" in relative.parts or path.suffix in {".pyc", ".pyo"}:
             continue
+        files.append(path)
+    return files
+
+
+def scan() -> list[str]:
+    errors: list[str] = []
+    for path in public_files():
+        relative = path.relative_to(ROOT)
         if len(relative.parts) == 1:
             if relative.name not in ALLOWED_ROOT_FILES:
                 errors.append(f"root file outside allowlist: {relative}")
@@ -56,7 +64,7 @@ def main() -> int:
         print("PUBLIC TREE REJECTED")
         print("\n".join(errors))
         return 1
-    files = [path.relative_to(ROOT).as_posix() for path in sorted(ROOT.rglob("*")) if path.is_file() and "__pycache__" not in path.parts and path.suffix not in {".pyc", ".pyo"}]
+    files = [path.relative_to(ROOT).as_posix() for path in public_files()]
     print("PUBLIC TREE ACCEPTED")
     print("Allowlisted files:")
     print("\n".join(files))

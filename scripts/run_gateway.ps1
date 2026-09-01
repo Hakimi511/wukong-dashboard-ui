@@ -2,6 +2,7 @@
 param(
   [Parameter(Mandatory=$true)][string]$DashboardRoot,
   [string]$UiRoot,
+  [string]$SecretFile,
   [string]$Origin,
   [switch]$InsecureLocalhost,
   [int]$Port = 8766
@@ -20,6 +21,20 @@ if (-not $python) {
   $pythonCommand = Get-Command python -ErrorAction SilentlyContinue
   if (-not $pythonCommand) { throw 'Python runtime not found.' }
   $python = $pythonCommand.Source
+}
+if ($SecretFile) {
+  if (-not (Test-Path -LiteralPath $SecretFile)) { throw 'Encrypted gateway Secret file was not found.' }
+  $protectedPayload = Get-Content -LiteralPath $SecretFile -Raw
+  $securePayload = ConvertTo-SecureString $protectedPayload
+  $payloadPointer = [Runtime.InteropServices.Marshal]::SecureStringToBSTR($securePayload)
+  try {
+    $payloadJson = [Runtime.InteropServices.Marshal]::PtrToStringBSTR($payloadPointer)
+  } finally {
+    [Runtime.InteropServices.Marshal]::ZeroFreeBSTR($payloadPointer)
+  }
+  $payload = $payloadJson | ConvertFrom-Json
+  $env:WUKONG_DASHBOARD_USERS_JSON = [string]$payload.users_json
+  $env:WUKONG_SESSION_SECRET = [string]$payload.session_secret
 }
 if (-not $env:WUKONG_DASHBOARD_USERS_JSON) {
   if (-not $env:WUKONG_DASHBOARD_USERNAME) { $env:WUKONG_DASHBOARD_USERNAME = 'liyilin' }

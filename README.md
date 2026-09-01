@@ -23,6 +23,8 @@ $env:WUKONG_SESSION_SECRET = '<随机生成的长字符串>'
 
 初始单账号部署可继续使用 `WUKONG_DASHBOARD_USERNAME` 与 `WUKONG_DASHBOARD_PASSWORD_HASH`，但不适合向多人共享。
 
+Windows 长期运行时，推荐把账号哈希和会话密钥写入当前用户 DPAPI 加密的 Secret 文件，并通过 `-SecretFile` 传给启动脚本。该文件只能由创建它的同一 Windows 用户在同一台机器上解密，不得放入 Git。
+
 然后启动只读网关。`--dashboard-root` 应指向当前项目的 `dashboard_local`，而不是复制出来的数据库目录：
 
 ```powershell
