@@ -24,7 +24,7 @@ if (-not $python) {
 }
 if ($SecretFile) {
   if (-not (Test-Path -LiteralPath $SecretFile)) { throw 'Encrypted gateway Secret file was not found.' }
-  $protectedPayload = Get-Content -LiteralPath $SecretFile -Raw
+  $protectedPayload = (Get-Content -LiteralPath $SecretFile -Raw).Trim()
   $securePayload = ConvertTo-SecureString $protectedPayload
   $payloadPointer = [Runtime.InteropServices.Marshal]::SecureStringToBSTR($securePayload)
   try {
